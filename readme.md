@@ -1,6 +1,6 @@
 # SafeEar推理脚本
 
-弄了好长时间，终于把SafeEar的推理脚本搞出来了，下面是使用说明。
+弄了好长时间，终于把SafeEar的推理脚本搞出来了，经过在ASVSPOOF2019数据集上的测试，应该能够得到和标签一样的结果。下面是使用说明。
 
 ## 1.结构说明
 
@@ -73,7 +73,7 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
 
 # SafeEar Inference Script
 
-After considerable effort, the SafeEar inference script has been completed. Below is the usage guide.
+After considerable effort, the SafeEar inference script has been completed. After testing on the ASVSPOOF2019 dataset, the same result as the label is achievable. Below is the usage guide.
 
 ## 1. Structure Overview
 
