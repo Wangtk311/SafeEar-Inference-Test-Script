@@ -1,0 +1,81 @@
+# conf_infer.yml
+
+exp:
+  dir: result/
+  name: infer_single_flac
+
+datamodule:
+  _target_: safeear.datas.asvspoof19.DataModule
+
+  # 传给 DataModule.__init__ 的第一个参数
+  DataClass_dict:
+    _target_: safeear.datas.asvspoof19.DataClass
+
+    # 三个阶段都指向同一个 manifest/protocol/feat_dir
+    train_path:
+      - "hubert_manifest.tsv"
+      - "hubert_protocol.txt"
+      - "feat"
+    val_path:
+      - "hubert_manifest.tsv"
+      - "hubert_protocol.txt"
+      - "feat"
+    test_path:
+      - "hubert_manifest.tsv"
+      - "hubert_protocol.txt"
+      - "feat"
+
+    max_len: 64600
+
+  batch_size: 1
+  num_workers: 0
+  pin_memory: false
+
+decouple_model:
+  _target_: safeear.models.decouple.SpeechTokenizer
+  n_filters: 64
+  strides: [8,5,4,2]
+  dimension: 1024
+  semantic_dimension: 768
+  bidirectional: true
+  dilation_base: 2
+  residual_kernel_size: 3
+  n_residual_layers: 1
+  lstm_layers: 2
+  activation: ELU
+  codebook_size: 1024
+  n_q: 8
+  sample_rate: 16000
+speechtokenizer_path: ./SpeechTokenizer.pt
+
+detect_model:
+  _target_: safeear.models.safeear.SafeEar1s
+  front:
+    _target_: safeear.models.safeear.SE_Rawformer_front
+  embedding_dim: 1024
+  dropout_rate: 0.1
+  attention_dropout: 0.1
+  stochastic_depth: 0.1
+  num_layers: 2
+  num_heads: 8
+  num_classes: 2
+  positional_embedding: 'sine'
+  mlp_ratio: 1.0
+
+system:
+  _target_: safeear.trainer.safeear_trainer.SafeEarTrainer
+  lr_raw_former: 3.0e-4
+  save_score_path: ${exp.dir}/${exp.name}
+
+ckpt_path: ./model.ckpt
+
+output:
+  result_path: ${exp.dir}/infer_result.json
+
+trainer:
+  _target_: pytorch_lightning.Trainer
+  accelerator: gpu
+  devices: [0]
+  enable_checkpointing: false
+  logger: false
+  limit_predict_batches: 1.0
