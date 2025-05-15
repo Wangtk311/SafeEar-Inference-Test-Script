@@ -1,7 +1,5 @@
 # SafeEar推理脚本
 
----
-
 弄了好长时间，终于把SafeEar的推理脚本搞出来了，下面是使用说明。
 
 ## 1.结构说明
@@ -28,7 +26,7 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
 该模块已经对整个推理过程进行了封装，因此可以提供脚本运行+模块调用两种推理方式，十分方便。
 
 - 数据及环境准备
-    - 整体下载TestInference文件夹。
+    - 整体下载所有文件并放置到一个文件夹，命名为TestInference。
     - 模型运行的虚拟环境为SafeEar官方提供的conda虚拟环境。
     - 将要推理的flac音频文件保存到与`infer_single_flac.py`同级的目录下，命名为`audio.flac`。
     - 将要使用的预训练SafeEar模型检查点ckpt文件保存到与`infer_single_flac.py`同级的目录下，命名为`model.ckpt`。
@@ -101,7 +99,7 @@ result/infer_result.json # Inference output containing class label and confidenc
 This module supports both **script-based** and **module-based** inference, making it flexible and convenient.
 
 - Data & Environment Preparation
-  - Download the entire `TestInference` folder.
+  - Download all files and put them in a folder named `TestInference`.
   - Use the conda environment provided by SafeEar.
   - Save the audio file you want to infer (`.flac` format) in the same directory as `infer_single_flac.py` and name it `audio.flac`.
   - Save the trained SafeEar checkpoint file as `model.ckpt` in the same directory.
