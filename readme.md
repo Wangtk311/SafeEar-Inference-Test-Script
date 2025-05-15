@@ -6,16 +6,16 @@
 
 ```
 推理时可以替换的部分：
-audio.flac：要推理的音频文件，仅支持flac格式
-model.ckpt：训练好的SafeEar模型检查点
+audio.flac：要推理的音频文件，仅支持正确的flac格式
+model.ckpt：训练好的SafeEar模型检查点，可以从下文百度网盘链接下载，或使用您自己训练的模型
 
 推理时无需修改的部分：
 infer_single_flac.py：上层推理脚本，已写好无需修改
 conf_infer.yml：推理配置文件，与训练配置文件类似，已写好无需修改
 hubert_manifest.tsv：HuBERT特征化的manifest文件，包含了音频文件的路径和对应的标签，脚本会自动生成无需修改
 hubert_protocol.txt：HuBERT特征化的protocol文件，包含了音频文件的路径和对应的标签，脚本会自动生成无需修改
-Hubert_base_ls960.pt：HuBERT模型权重，已下载好无需修改
-SpeechTokenizer.pt：音频Tokenizer权重，已下载好无需修改
+Hubert_base_ls960.pt：HuBERT模型权重，如果已下载好无需修改，否则请从下文百度网盘链接下载
+SpeechTokenizer.pt：音频Tokenizer权重，如果已下载好无需修改，否则请从下文百度网盘链接下载
 
 推理结果：
 result/infer_result.json：推理结果文件，包含分类结果和对应的置信度
@@ -30,7 +30,7 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
     - 模型运行的虚拟环境为SafeEar官方提供的conda虚拟环境。
     - 将要推理的flac音频文件保存到与`infer_single_flac.py`同级的目录下，命名为`audio.flac`。
     - 将要使用的预训练SafeEar模型检查点ckpt文件保存到与`infer_single_flac.py`同级的目录下，命名为`model.ckpt`。
-    - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: sfer。
+    - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: `sfer`。将它们三个都放在根目录`TestInference`下。
 
 - 运行推理脚本
     - 命令行方式调用：
@@ -80,15 +80,15 @@ After considerable effort, the SafeEar inference script has been completed. Afte
 ```
 Files you can replace during inference:
 audio.flac # The audio file to be inferred (only supports FLAC format)
-model.ckpt # The trained SafeEar model checkpoint
+model.ckpt # The trained SafeEar model checkpoint, you can download using BaiduNetdisk, or use your trained model
 
 Files unecessary to modify:
 infer_single_flac.py # Top-level inference script, already implemented
 conf_infer.yml # Inference configuration file, similar to the training config
 hubert_manifest.tsv # Manifest for HuBERT feature extraction (auto-generated)
 hubert_protocol.txt # Protocol file for HuBERT features (auto-generated)
-Hubert_base_ls960.pt # HuBERT model weights (pre-downloaded)
-SpeechTokenizer.pt # Audio tokenizer weights (pre-downloaded)
+Hubert_base_ls960.pt # HuBERT model weights (can be download using BaiduNetdisk)
+SpeechTokenizer.pt # Audio tokenizer weights (can be download using BaiduNetdisk)
 
 Inference result:
 result/infer_result.json # Inference output containing class label and confidence scores
@@ -103,7 +103,7 @@ This module supports both **script-based** and **module-based** inference, makin
   - Use the conda environment provided by SafeEar.
   - Save the audio file you want to infer (`.flac` format) in the same directory as `infer_single_flac.py` and name it `audio.flac`.
   - Save the trained SafeEar checkpoint file as `model.ckpt` in the same directory.
-  - Note: For `model.ckpt`, it is recommended to use your own trained checkpoint. Due to GitHub's size limit, model files cannot be hosted directly(I donnot want to setup LFS). Therefore, they have been uploaded to a cloud drive:Download model files (BaiduNetDisk) https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer Extract code: `sfer`.
+  - Note: For `model.ckpt`, it is recommended to use your own trained checkpoint. Due to GitHub's size limit, model files cannot be hosted directly(I donnot want to setup LFS). Therefore, they have been uploaded to a cloud drive:Download model files (BaiduNetDisk) https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer Extract code: `sfer`. And put those three models in `TestInference` folder.
 
 
 - Run the Inference Script
