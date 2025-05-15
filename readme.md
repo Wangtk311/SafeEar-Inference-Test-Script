@@ -30,7 +30,7 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
     - 模型运行的虚拟环境为SafeEar官方提供的conda虚拟环境。
     - 将要推理的flac音频文件保存到与`infer_single_flac.py`同级的目录下，命名为`audio.flac`。
     - 将要使用的预训练SafeEar模型检查点ckpt文件保存到与`infer_single_flac.py`同级的目录下，命名为`model.ckpt`。
-    - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: sfer
+    - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: sfer。
 
 - 运行推理脚本
     - 命令行方式调用：
