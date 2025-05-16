@@ -51,7 +51,7 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
         inferencer.infer()
 
         # 如果想指定推理配置或者修改推理的音频位置和名称，也可以采用以下方式（不推荐，因为推理器类的实现有可能存在潜在问题，或者推理配置可能存在潜在问题，这部分没有经过测试，故使用时应保持谨慎）。
-        inferencer = SafeEarInferencer(conf_path="my_config.yml",audio_path="my_audio.flac")
+        inferencer = SafeEarInferencer(conf_path="my_config.yml", audio_path="my_audio.flac")
         inferencer.infer()
         ```
 - 运行完成后，推理结果会保存在`result/infer_result.json`文件中，包含分类结果和对应的置信度，可以直接解析。
