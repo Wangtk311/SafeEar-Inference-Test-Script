@@ -2,6 +2,8 @@
 
 弄了好长时间，终于把SafeEar的推理脚本搞出来了，经过在ASVSPOOF2019数据集上的测试，应该能够得到和标签一样的结果。下面是使用说明。
 
+新提供了单元测试和集成测试脚本`auto_unit_test.py`和`auto_integration_test.py`。
+
 ## 1.结构说明
 
 ```
@@ -26,34 +28,34 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
 该模块已经对整个推理过程进行了封装，因此可以提供脚本运行+模块调用两种推理方式，十分方便。
 
 - 数据及环境准备
-    - 整体下载所有文件并放置到一个文件夹，命名为`TestInference`。
-    - 模型运行的虚拟环境为SafeEar官方提供的conda虚拟环境。
-    - 将要推理的flac音频文件保存到与`infer_single_flac.py`同级的目录下，命名为`audio.flac`。
-    - 将要使用的预训练SafeEar模型检查点ckpt文件保存到与`infer_single_flac.py`同级的目录下，命名为`model.ckpt`。
-    - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: `sfer`。将它们三个都放在根目录`TestInference`下。
+  - 整体下载所有文件并放置到一个文件夹，命名为`TestInference`。
+  - 模型运行的虚拟环境为SafeEar官方提供的conda虚拟环境。
+  - 将要推理的flac音频文件保存到与`infer_single_flac.py`同级的目录下，命名为`audio.flac`。
+  - 将要使用的预训练SafeEar模型检查点ckpt文件保存到与`infer_single_flac.py`同级的目录下，命名为`model.ckpt`。
+  - 由于仓库大小限制，对于三个模型文件，可能无法上传至GitHub仓库，我不想配置LFS。因此，我已将其上传至网盘，您可以通过网盘链接将它们下载，并放置到`TestInference`文件夹下，即根目录中。对于`model.ckpt`，推荐使用您自己训练的模型检查点（目前我们的版本可能性能并不好）。三个文件的下载百度网盘链接：https://pan.baidu.com/s/14lrsrdz8R-Vy3PjNr67MGg?pwd=sfer 提取码: `sfer`。将它们三个都放在根目录`TestInference`下。
 
 - 运行推理脚本
-    - 命令行方式调用：
-        ```bash
-        # 按照默认方式直接调用（推荐）。
-        (safeear) python infer_single_flac.py
+  - 命令行方式调用：
+      ```bash
+      # 按照默认方式直接调用。
+      (safeear) python infer_single_flac.py
 
-        # 如果想指定推理配置或者修改推理的音频位置和名称，也可以采用以下方式（不推荐，因为推理器类的实现有可能存在潜在问题，或者推理配置可能存在潜在问题，这部分没有经过测试，故使用时应保持谨慎）。
-        (safeear) python infer_single_flac.py --conf my_config.yml --audio my_audio.flac
-        ```
-    - 模块调用：
-        ```python
-        # 在TestInference文件夹外的脚本中调用。注意flac文件必须格式正确（ASVSPOOF2019数据集中的flac音频格式是正确的）。
-        from TestInference.infer_single_flac import SafeEarInferencer
+      # 如果想指定推理配置或者修改推理的音频位置和名称，也可以采用以下方式。
+      (safeear) python infer_single_flac.py --conf my_config.yml --audio my_audio.flac
+      ```
+  - 模块调用：
+      ```python
+      # 在TestInference文件夹外的脚本中调用。注意flac文件必须格式正确（ASVSPOOF2019数据集中的flac音频格式是正确的）。
+      from TestInference.infer_single_flac import SafeEarInferencer
 
-        # 按照默认方式直接调用（推荐）。
-        inferencer = SafeEarInferencer()
-        inferencer.infer()
+      # 按照默认方式直接调用。
+      inferencer = SafeEarInferencer()
+      inferencer.infer()
 
-        # 如果想指定推理配置或者修改推理的音频位置和名称，也可以采用以下方式（不推荐，因为推理器类的实现有可能存在潜在问题，或者推理配置可能存在潜在问题，这部分没有经过测试，故使用时应保持谨慎）。
-        inferencer = SafeEarInferencer(conf_path="my_config.yml", audio_path="my_audio.flac")
-        inferencer.infer()
-        ```
+      # 如果想指定推理配置或者修改推理的音频位置和名称，也可以采用以下方式。
+      inferencer = SafeEarInferencer(conf_path="my_config.yml", audio_path="my_audio.flac")
+      inferencer.infer()
+      ```
 - 运行完成后，推理结果会保存在`result/infer_result.json`文件中，包含分类结果和对应的置信度，可以直接解析。
 
 ## 3.推理结果解析
@@ -74,6 +76,8 @@ result/infer_result.json：推理结果文件，包含分类结果和对应的�
 # SafeEar Inference Script
 
 After considerable effort, the SafeEar inference script has been completed. After testing on the ASVSPOOF2019 dataset, the same result as the label is achievable. Below is the usage guide.
+
+New: Unit and integration test scripts `auto_unit_test.py` and `auto_integration_test.py` have been provided.
 
 ## 1. Structure Overview
 
@@ -110,10 +114,10 @@ This module supports both **script-based** and **module-based** inference, makin
 
   - Command-line usage:
     ```bash
-    # Use the default setup (recommanded)
+    # Use the default setup
     (safeear) python infer_single_flac.py
 
-    # Optional: Custom config and audio (not recommended because of possible code errors)
+    # Optional: Custom config and audio
     (safeear) python infer_single_flac.py --conf my_config.yml --audio my_audio.flac
     ```
   - Python module usage:
@@ -121,11 +125,11 @@ This module supports both **script-based** and **module-based** inference, makin
     # Call the inference in another script (outside TestInference folder)
     from TestInference.infer_single_flac import SafeEarInferencer
 
-    # Recommended usage
+    # Default usage
     inferencer = SafeEarInferencer()
     inferencer.infer()
 
-    # Optional: Specify config and audio path manually (not recommended because of possible code errors)
+    # Optional: Specify config and audio path manually
     inferencer = SafeEarInferencer(conf_path="my_config.yml", audio_path="my_audio.flac")
     inferencer.infer()
     ```
